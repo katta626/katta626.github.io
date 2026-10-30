@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+.taste-skill
+.impeccable
+# working notes and the duplicate CV; the published CV is public/Katta_Naveen_CV.pdf
+neutron-star-site-prompt.md
+PRODUCT.md
+/Katta_Naveen_CV.pdf

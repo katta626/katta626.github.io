@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Katta Naveen · Pulsars, radio instruments and dense matter</title>
+  <meta name="description" content="Katta Naveen, Raman Research Institute: pulsar and magnetar radio observations, radio instrumentation, and the hadron-to-quark transition inside neutron stars.">
+  <meta name="theme-color" content="#0e0e0d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+</head>
+<body class="page-home">
+  <a class="skip" href="#pulsar">Skip to the research</a>
+
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <img class="fallback" src="img/magnetar-artist-s-impression-heic2504a.jpg" width="1920" height="1080" alt="" aria-hidden="true">
+  <svg class="leaders" aria-hidden="true"><path pathLength="1"/><circle class="ring" r="10"/><circle class="dot" r="4"/></svg>
+  <div class="tags" aria-hidden="true">
+    <span class="tag" data-anchor="crust">Crust</span>
+    <span class="tag" data-anchor="outer">Hadronic matter</span>
+    <span class="tag tag-mixed" data-anchor="mixed">Mixed phase</span>
+    <span class="tag" data-anchor="core" data-side="left">Quark core</span>
+  </div>
+
+  <header class="bar">
+    <a class="wordmark" href="./" aria-current="page">Katta Naveen</a>
+    <nav aria-label="Pages">
+      <a href="./" aria-current="page">Research</a>
+      <a href="ml.html">Machine learning</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+    <a class="btn btn-small" href="Katta_Naveen_CV.pdf" download>CV</a>
+  </header>
+
+  <main id="main">
+    <!-- Arrival -->
+    <section class="hero" data-pose="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="hero-name">Katta Naveen</h1>
+      <p class="hero-line">I listen to neutron stars: their radio pulses, the signals on their way to us, and the matter in their cores.</p>
+      <p class="hero-role">Visiting Student, Radio Astronomy Lab, Raman Research Institute, Bengaluru</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#pulsar">Pulsar emission</a>
+        <a href="#magnetar">Magnetars</a>
+        <a href="#signal">Dispersion</a>
+        <a href="#interior">Inside the star</a>
+        <a href="#twins">Twin stars</a>
+      </nav>
+    </section>
+
+    <!-- Pulsar emission -->
+    <section class="chapter" id="pulsar" data-pose="pulsar" aria-labelledby="pulsar-title">
+      <article class="win" data-anchor="pole" data-pop>
+        <h2 id="pulsar-title">Radio emission from pulsars</h2>
+        <p>A pulsar is a spinning neutron star whose magnetic axis is tilted from its spin axis. Charged particles stream out along the open field lines above each magnetic pole and emit a narrow beam of coherent radio waves. Each turn the beam sweeps past Earth once, and we see a pulse.</p>
+        <p>Averaged over thousands of turns the pulse looks steady; one turn at a time it is not. Bright subpulses can march across the pulse window from turn to turn (<em>subpulse drifting</em>), and flares can return at the same rotational phase (<em>phase-locked intermittent brightness</em>). Both map how the plasma above the pole is organised.</p>
+        <p>I study these single pulses in more than 300 days of observations at 175 MHz.</p>
+        <dl class="mini">
+          <div><dt>Source</dt><dd>PSR J1921+2153</dd></div>
+          <div><dt>Period</dt><dd>1.337 s</dd></div>
+          <div><dt>Frequency</dt><dd>175 MHz</dd></div>
+          <div><dt>With</dt><dd>Dr. Prabu T, RRI</dd></div>
+        </dl>
+      </article>
+    </section>
+
+    <!-- Magnetars -->
+    <section class="chapter right" id="magnetar" data-pose="magnetar" aria-labelledby="magnetar-title">
+      <article class="win" data-anchor="flare" data-pop>
+        <h2 id="magnetar-title">Magnetars and fast radio bursts</h2>
+        <p>Magnetars carry the strongest magnetic fields known, around 10<sup>14</sup> to 10<sup>15</sup> gauss, and spin slowly, once every few seconds. As the field twists and breaks, the crust cracks and the star flares in X-rays and γ-rays.</p>
+        <p>In April 2020 the Galactic magnetar SGR J1935+2154 produced FRB 200428, the first fast radio burst traced to a known source. It tied at least some of these millisecond bursts to magnetars. I run targeted low-frequency observations of this magnetar and look for radio emission linked to its activity.</p>
+      </article>
+      <aside class="win win-note" data-pop aria-labelledby="note-title">
+        <h3 id="note-title">A note on spin and age</h3>
+        <p>The star on this page spins for display, not to scale. Real neutron stars turn anywhere from hundreds of times a second to once every several seconds. Pulsars like the one I observe are millions of years old; magnetars are young, thousands to tens of thousands of years, and slow.</p>
+        <p>The equation of state below describes a cold, stable star in equilibrium. A neutron star cools into that state within its first years, and spin changes its structure only slightly, so the same physics of the core applies to an old pulsar and a young magnetar alike.</p>
+      </aside>
+    </section>
+
+    <!-- The signal travels: dispersion -->
+    <section class="chapter wide" id="signal" data-pose="signal" aria-labelledby="signal-title">
+      <div class="travel" data-pop>
+        <div class="travel-star" aria-hidden="true"></div>
+        <div class="travel-path">
+          <canvas class="travel-canvas" role="img" aria-label="A radio pulse travelling from the star to the antenna: the high-frequency part pulls ahead and the low-frequency part falls behind."></canvas>
+        </div>
+        <figure class="travel-ant">
+          <img src="img/rotatable-log-periodic-antenna.jpg" width="1920" height="1278" loading="lazy" decoding="async" alt="A log-periodic dipole antenna on a mast.">
+          <figcaption>The receiving end: a log-periodic dipole antenna, standing in for DART here.</figcaption>
+        </figure>
+      </div>
+      <article class="win win-wide disp-sec" data-pop>
+        <div class="disp-text">
+          <h2 id="signal-title">The signal travels: dispersion</h2>
+          <p>On its way to us a radio pulse crosses thin ionised gas between the stars. Lower frequencies travel slower, so the pulse arrives as a sweep: high frequencies first, low ones later. The delay grows with the dispersion measure, DM, the column of free electrons along the line of sight.</p>
+          <div class="eq">
+            <math display="block">
+              <mi>Δ</mi><mi>t</mi><mo>≈</mo><mn>4.15</mn><mtext>&#x2009;ms</mtext><mo>×</mo><mi>DM</mi><mo>×</mo>
+              <mo>(</mo><msubsup><mi>f</mi><mtext>lo</mtext><mrow><mo>−</mo><mn>2</mn></mrow></msubsup><mo>−</mo><msubsup><mi>f</mi><mtext>hi</mtext><mrow><mo>−</mo><mn>2</mn></mrow></msubsup><mo>)</mo>
+            </math>
+            <p class="eq-note">DM in pc cm<sup>−3</sup>, frequencies in GHz.</p>
+          </div>
+          <p>Shift each channel back by its delay and sum: the pulse snaps into a sharp peak. Get the DM wrong and it smears into the noise. For the Diamond Array Radio Telescope (DART) I built the pipeline that does this for fast radio bursts: ADC samples to filterbank data, processed in parallel, with GPU interference removal and real-time detection under way.</p>
+        </div>
+        <div class="wf">
+          <div class="wf-plate">
+            <canvas class="wf-canvas" role="img" aria-label="Simulated dynamic spectrum of a pulsar between 150 and 200 megahertz, with the frequency-summed profile below."></canvas>
+          </div>
+          <div class="wf-controls">
+            <div class="control">
+              <label for="dm">Dispersion measure <output id="dm-out" for="dm">12.4</output> pc cm<sup>−3</sup></label>
+              <input id="dm" type="range" min="0" max="40" step="0.1" value="12.4">
+            </div>
+            <label class="check"><input type="checkbox" id="dedisperse"><span>Dedisperse at the trial DM</span></label>
+            <div class="control">
+              <label for="trial">Trial DM <output id="trial-out" for="trial">0.0</output></label>
+              <input id="trial" type="range" min="0" max="40" step="0.1" value="0">
+            </div>
+            <p class="snr">Peak signal-to-noise <strong class="snr-v">–</strong></p>
+          </div>
+          <p class="wf-cap">Simulated: a 1.337 s pulsar between 150 and 200 MHz, real DM about 12.4. Turn on dedispersion and move the trial DM until the profile peaks.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- Inside the star: hadrons to quarks (thesis) -->
+    <section class="chapter" id="interior" data-pose="interior" aria-labelledby="interior-title">
+      <article class="win win-big" data-pop>
+        <h2 id="interior-title">Inside the star: hadrons to quarks</h2>
+        <p>Under the crust, neutrons crowd closer with depth until, in the core, they may overlap so much that their quarks no longer belong to any one of them: hadronic matter becomes deconfined quark matter. The cutaway shows both: rings of three quarks are neutrons; loose quarks are quark matter.</p>
+        <p>The usual model, the Maxwell construction, makes the change a sharp boundary at one pressure. Surface tension and charge screening can instead let the two phases mix over a range of depth in droplets, rods and slabs, a hadron–quark pasta. In my thesis I modelled that mixed phase with one extra pressure, Δ<i>P</i>, added at the transition:</p>
+        <div class="eq">
+          <math display="block"><msub><mi>P</mi><mi>M</mi></msub><mo>(</mo><mi>μ</mi><mo>)</mo><mo>=</mo><mi>α</mi><msup><mrow><mo>(</mo><mi>μ</mi><mo>−</mo><msub><mi>μ</mi><mi>c</mi></msub><mo>)</mo></mrow><mn>2</mn></msup><mo>+</mo><mi>β</mi><mo>(</mo><mi>μ</mi><mo>−</mo><msub><mi>μ</mi><mi>c</mi></msub><mo>)</mo><mo>+</mo><msub><mi>P</mi><mi>c</mi></msub><mo>+</mo><mi>Δ</mi><mi>P</mi></math>
+          <p class="eq-note">Hadronic and quark phases as piecewise polytropes; the quadratic joins them with matching pressure and density at both ends.</p>
+        </div>
+        <div class="dp">
+          <div class="control">
+            <label for="dp">Extra pressure Δ<i>P</i> / <i>P</i><sub>c</sub> <output id="dp-out" for="dp">0.00</output></label>
+            <input id="dp" type="range" min="0" max="0.08" step="0.002" value="0">
+          </div>
+          <figure class="pmu">
+            <svg viewBox="0 0 320 190" role="img" aria-labelledby="pmu-t">
+              <title id="pmu-t">Pressure against chemical potential: the hadronic and quark lines cross at the transition; the mixed phase is a curve joining them, which grows wider as the extra pressure rises.</title>
+              <path class="axis" d="M34 164 H310 M34 164 V12"/>
+              <text x="300" y="182" text-anchor="end">chemical potential μ</text>
+              <text x="8" y="16">P</text>
+              <path class="l-h"/><path class="l-q"/><path class="l-m"/>
+              <text class="t-h" x="44" y="132">hadronic</text>
+              <text class="t-q" x="250" y="40">quark</text>
+            </svg>
+            <figcaption class="dp-state">Δ<i>P</i> = 0: Maxwell, a sharp boundary.</figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+
+    <!-- What it changes: mass, radius, twins (thesis) -->
+    <section class="chapter" id="twins" data-pose="twins" aria-labelledby="twins-title">
+      <article class="win win-big" data-pop>
+        <h2 id="twins-title">What it changes: mass, radius and twin stars</h2>
+        <p>Solving the Tolman–Oppenheimer–Volkoff equations for each equation of state gives the family of stars it allows. A strong, sharp transition can break that family: stars just past the transition are unstable, and a second, more compact branch appears. Two stable stars then share one mass with different radii, <em>twin stars</em>. In my models twins appeared at 1.66 solar masses with radii of 10 and 12.25 km.</p>
+        <p>Raising Δ<i>P</i> smooths the transition, raises the maximum mass and, past a threshold, removes the twins. That threshold falls as the quark matter stiffens and rises as the transition moves deeper into the star. There is also a largest Δ<i>P</i> an equation of state can carry and stay thermodynamically consistent.</p>
+        <figure class="mr">
+          <svg viewBox="0 0 560 400" role="img" aria-labelledby="mr-t">
+            <title id="mr-t">Schematic mass–radius curves. With small extra pressure a third, compact branch appears and twin stars exist; with large extra pressure the curve is continuous and the twins are gone.</title>
+            <path class="axis" d="M70 30 V360 H530"/>
+            <g class="ticks">
+              <text x="147" y="384">10</text><text x="223" y="384">11</text><text x="300" y="384">12</text><text x="377" y="384">13</text><text x="453" y="384">14</text>
+              <text x="38" y="265">1.2</text><text x="38" y="199">1.6</text><text x="38" y="133">2.0</text>
+            </g>
+            <text class="axis-t" x="300" y="398" text-anchor="middle">Radius (km)</text>
+            <text class="axis-t" x="16" y="20">Mass (solar masses)</text>
+            <g class="g-twin">
+              <path class="curve c-twin" d="M423,335 C405,280 330,200 319,185 S303,171 300,170"/>
+              <path class="curve c-twin dashed" d="M300,170 C280,180 220,205 193,220"/>
+              <path class="curve c-twin" d="M193,220 C175,212 155,195 147,185 S130,175 124,175 S112,177 108,178"/>
+              <circle class="twin-dot" cx="319" cy="185" r="6"/>
+              <circle class="twin-dot" cx="147" cy="185" r="6"/>
+              <text class="twin-t" x="160" y="250">twins: 1.66 solar masses,</text>
+              <text class="twin-t" x="160" y="270">10 km and 12.25 km</text>
+            </g>
+            <g class="g-smooth">
+              <path class="curve c-smooth" d="M423,335 C405,280 345,215 331,195 S270,140 246,137 S222,140 216,142"/>
+            </g>
+          </svg>
+          <figcaption>
+            <span class="key"><span class="sw sw-twin"></span>Small Δ<i>P</i>: twin stars</span>
+            <span class="key"><span class="sw sw-smooth"></span>Large Δ<i>P</i>: no twins</span>
+            <span class="mr-note">Schematic of the trend; dashed stars are unstable. Uses the same Δ<i>P</i> slider as the star.</span>
+          </figcaption>
+        </figure>
+        <div class="control dp-2">
+          <label for="dp2">Extra pressure Δ<i>P</i> / <i>P</i><sub>c</sub> <output id="dp2-out" for="dp2">0.00</output></label>
+          <input id="dp2" type="range" min="0" max="0.08" step="0.002" value="0">
+        </div>
+        <p class="meta">Master’s thesis, <em>Investigating Mixed Phase Effects in Neutron Stars</em>, COAST group, IISER Bhopal, with Dr. Ritam Mallick, 2025. <a href="#thesis-link-to-come" data-placeholder>Read the thesis</a></p>
+        <p class="meta">Now: replacing the polytropes with microphysical models, relativistic mean-field theory for hadronic matter and the MIT bag and NJL models for quark matter, to estimate the surface tension of neutron-star matter.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="foot" id="contact">
+    <div class="foot-top">
+      <h2 class="foot-title">Write to me</h2>
+      <a class="foot-mail" href="mailto:naveenkatta626@gmail.com">naveenkatta626@gmail.com</a>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <p class="f-first">Katta Naveen</p>
+        <p>Radio Astronomy Lab</p>
+        <p>Raman Research Institute, Bengaluru</p>
+      </div>
+      <div class="f-pubs">
+        <p class="f-first">Publications</p>
+        <p>Time-Domain Astronomy using Diamond Array Radio Telescope (DART). IEEE Xplore, accepted 2026.</p>
+        <p><a href="#jaa-link-to-come" data-placeholder>Innovative Web Tool for Remote Data Acquisition and Analysis, SKA LPDA Array, Gauribidanur</a>. Journal of Astronomy and Astrophysics, 2025.</p>
+        <p><a href="Katta_Naveen_CV.pdf" download>Full CV (PDF)</a></p>
+      </div>
+      <div>
+        <p class="f-first">Elsewhere</p>
+        <p><a href="#github-link-to-come" data-placeholder>GitHub</a></p>
+        <p><a href="#linkedin-link-to-come" data-placeholder>LinkedIn</a></p>
+        <p><a href="#orcid-link-to-come" data-placeholder>ORCID</a></p>
+      </div>
+      <div class="f-credits">
+        <p class="f-first">Pictures</p>
+        <p>Log-periodic antenna: Josh Plueger, USAF (public domain), via Wikimedia Commons.</p>
+      </div>
+    </div>
+    <p class="legal">© 2026 Katta Naveen. The 3D star and the plots are drawings of the physics, not observations or results.</p>
+  </footer>
+
+  <script type="module" src="/src/home.js"></script>
+</body>
+</html>
