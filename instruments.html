@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instruments · Katta Naveen</title>
+  <meta name="description" content="Dispersion and dedispersion, a fast-radio-burst pipeline for DART, and a two-element interferometer at Gauribidanur.">
+  <meta name="theme-color" content="#0e0e0d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+</head>
+<body class="page-plain">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="bar">
+    <a class="wordmark" href="./">Katta Naveen</a>
+    <nav aria-label="Pages">
+      <a href="./" aria-current="page">Research</a>
+      <a href="ml.html">Machine learning</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+    <a class="btn btn-small" href="Katta_Naveen_CV.pdf" download>CV</a>
+  </header>
+
+  <main id="main" class="doc">
+    <header class="page-head">
+      <h1 data-pop>Instruments</h1>
+      <p class="standfirst" data-pop>A radio telescope records voltages, not pulsars. These are two projects on the path between them.</p>
+      <a class="back" href="./#signal">Back to the star</a>
+    </header>
+
+    <section class="doc-sec" aria-labelledby="dart-t">
+      <div class="doc-text">
+        <h2 id="dart-t" data-pop>DART: transient pipeline and web integration</h2>
+        <p class="meta" data-pop>2025 to now · Radio Astronomy Lab, Raman Research Institute</p>
+        <p data-pop>The Gauribidanur Diamond Array Radio Telescope is an array of 64 log-periodic dipole antennas that observes bright pulsars and solar transients between 130 and 350 MHz. To catch millisecond bursts as they happen, I built its FRB-processing pipeline: converting raw ADC samples into filterbank data, processing the radio time series automatically, and spreading the work across processes in parallel. I also worked on the digital receiver backend, and I am moving interference removal and transient detection onto the GPU so that candidates are found in real time. The pipeline code is integrated with a web page.</p>
+        <p class="meta" data-pop>Paper: <em>Time-Domain Astronomy using Diamond Array Radio Telescope (DART)</em>, IEEE Xplore, accepted August 2026.</p>
+      </div>
+      <figure class="doc-pic" data-pop>
+        <img src="img/gbd-dart-array.jpg" width="1270" height="958" loading="lazy" decoding="async" alt="The GBD-DART array in the field: rows of log-periodic dipole antennas on a metal mesh, 8.4 by 5.9 metres, with labelled electronics boxes.">
+        <figcaption>The DART array at Gauribidanur (Fig. 4 of the instrument paper).</figcaption>
+      </figure>
+    </section>
+
+    <section class="doc-figs" aria-label="The DART instrument and its first results">
+      <figure class="doc-fig doc-fig-wide" data-pop>
+        <img src="img/gbd-dart-signal-chain.jpg" width="1800" height="1036" loading="lazy" decoding="async" alt="Block diagram of the signal chain: antennas, low-noise amplifiers and filters in the field, optical fibre to the observatory room, a portable dual receiver and digitiser, then data capture and processing computers.">
+        <figcaption>The signal chain, from the antennas to the data-processing computers (Fig. 6).</figcaption>
+      </figure>
+      <figure class="doc-fig" data-pop>
+        <img src="img/gbd-dart-pulsars.jpg" width="1458" height="604" loading="lazy" decoding="async" alt="Folded pulse profiles at 175 MHz of pulsars J0534+2200 and J1136+1551, plotted as signal-to-noise against pulse phase.">
+        <figcaption>Two pulsars detected at 175 MHz in 1800 s: the Crab, J0534+2200, and J1136+1551 (Fig. 10).</figcaption>
+      </figure>
+      <figure class="doc-fig" data-pop>
+        <img src="img/gbd-dart-solar-event.jpg" width="1400" height="1400" loading="lazy" decoding="async" alt="Dynamic spectrum between 192 and 208 megahertz showing a bright vertical band: a solar radio event, with total power above it.">
+        <figcaption>An intense solar event recorded on 27 July 2024 (Fig. 9).</figcaption>
+      </figure>
+    </section>
+
+    <article class="win win-wide disp-sec" data-pop aria-labelledby="d-t">
+      <div class="disp-text">
+        <h2 id="d-t">Dispersion and dedispersion</h2>
+        <p>On its way to us a radio pulse crosses thin ionised gas between the stars. Lower frequencies travel slower, so the pulse arrives as a sweep: high frequencies first, low ones later. The delay grows with the dispersion measure, DM, the column of free electrons along the line of sight.</p>
+        <div class="eq">
+          <math display="block">
+            <mi>Δ</mi><mi>t</mi><mo>≈</mo><mn>4.15</mn><mtext>&#x2009;ms</mtext><mo>×</mo><mi>DM</mi><mo>×</mo>
+            <mo>(</mo><msubsup><mi>f</mi><mtext>lo</mtext><mrow><mo>−</mo><mn>2</mn></mrow></msubsup><mo>−</mo><msubsup><mi>f</mi><mtext>hi</mtext><mrow><mo>−</mo><mn>2</mn></mrow></msubsup><mo>)</mo>
+          </math>
+          <p class="eq-note">DM in pc cm<sup>−3</sup>, frequencies in GHz.</p>
+        </div>
+        <p>Shift each channel back by its delay and sum: the pulse snaps into a sharp peak. Get the DM wrong and it smears into the noise. Searching over trial DMs is how pulsars and fast radio bursts are found.</p>
+      </div>
+      <div class="wf">
+        <div class="wf-plate">
+          <canvas class="wf-canvas" role="img" aria-label="Simulated dynamic spectrum of a pulsar between 150 and 200 megahertz, with the frequency-summed profile below."></canvas>
+        </div>
+        <div class="wf-controls">
+          <div class="control">
+            <label for="dm">Dispersion measure <output id="dm-out" for="dm">12.4</output> pc cm<sup>−3</sup></label>
+            <input id="dm" type="range" min="0" max="40" step="0.1" value="12.4">
+          </div>
+          <label class="check"><input type="checkbox" id="dedisperse"><span>Dedisperse at the trial DM</span></label>
+          <div class="control">
+            <label for="trial">Trial DM <output id="trial-out" for="trial">0.0</output></label>
+            <input id="trial" type="range" min="0" max="40" step="0.1" value="0">
+          </div>
+          <p class="snr">Peak signal-to-noise <strong class="snr-v">–</strong></p>
+        </div>
+        <p class="wf-cap">Simulated: a 1.337 s pulsar between 150 and 200 MHz, real DM about 12.4. Turn on dedispersion and move the trial DM until the profile peaks.</p>
+      </div>
+    </article>
+
+    <section class="doc-sec" aria-labelledby="lpda-t">
+      <div class="doc-text">
+        <h2 id="lpda-t" data-pop>A two-element interferometer for solar weather</h2>
+        <p class="meta" data-pop>May to July 2023 · Gauribidanur Radio Observatory</p>
+        <p data-pop>Before DART, I helped develop and commission a two-element broadband interferometer of log-periodic dipole antennas in the SKA low-frequency band, with a web tool to acquire and analyse its data remotely. I observed the Sun and the Galaxy with it for a month. It has since recorded solar radio bursts of every type for about three years, supporting low-frequency solar weather monitoring.</p>
+        <p class="meta" data-pop>Paper: <a href="https://doi.org/10.1007/s12036-025-10052-0"><em>Innovative Web Tool for Remote Data Acquisition and Analysis</em></a>, Journal of Astrophysics and Astronomy 46, 26, 2025.</p>
+      </div>
+      <figure class="doc-pic" data-pop>
+        <video autoplay muted loop playsinline preload="metadata" poster="img/september-10-2014-x1-6-flare-poster.jpg" width="1280" height="720" aria-label="A solar flare erupting, seen by NASA’s Solar Dynamics Observatory.">
+          <source src="img/september-10-2014-x1-6-flare.mp4" type="video/mp4">
+        </video>
+        <figcaption>A solar flare seen by NASA’s SDO. Flares like this produce the radio bursts the interferometer records.</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <footer class="foot foot-short">
+    <div class="foot-cols">
+      <div>
+        <p class="f-first">Katta Naveen</p>
+        <p><a href="mailto:naveenkatta626@gmail.com">naveenkatta626@gmail.com</a></p>
+      </div>
+      <div>
+        <p class="f-first">Explanations</p>
+        <p><a href="observations.html">Radio observations</a></p>
+        <p><a href="quark-matter.html">Quark matter in neutron stars</a></p>
+        <p><a href="./">Back to the star</a></p>
+      </div>
+      <div class="f-credits">
+        <p class="f-first">Pictures</p>
+        <p>Figures from Arul Pandian B et al. 2026, <a href="https://arxiv.org/abs/2602.00677">GBD-DART-I</a>, PASA, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; resized. Solar flare video: NASA SDO, NASA Image and Video Library.</p>
+      </div>
+    </div>
+    <p class="legal">© 2026 Katta Naveen.</p>
+  </footer>
+
+  <script type="module" src="/src/inst.js"></script>
+</body>
+</html>

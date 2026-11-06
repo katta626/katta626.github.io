@@ -10,6 +10,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         home: resolve(__dirname, 'index.html'),
+        observations: resolve(__dirname, 'observations.html'),
+        quark: resolve(__dirname, 'quark-matter.html'),
+        instruments: resolve(__dirname, 'instruments.html'),
         ml: resolve(__dirname, 'ml.html'),
         gallery: resolve(__dirname, 'gallery.html'),
       },

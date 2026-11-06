@@ -2,7 +2,6 @@
 // between sections the poses blend, and each window can point a line at the part of the star it explains.
 import { reduced, phoneQ, lenis } from './common.js';
 import { createStar } from './star.js';
-import { createDispersion } from './disperse.js';
 
 const root = document.documentElement;
 const canvas = document.getElementById('scene');
@@ -22,7 +21,7 @@ const DESK = {
   magnetar: { x: -0.55, s: 0.68, field: 1, beam: 0.15, twist: 1, flare: 1, rate: 0.15 },
   signal: { x: -0.78, y: 0.12, s: 0.26, field: 0.5, beam: 1, rate: 0.6 },
   interior: { x: 0.5, s: 1.0, cut: 1, core: 0.3, rate: 0.05, sky: 0.5 },
-  twins: { x: 0.5, s: 1.0, cut: 1, core: 0.3, rate: 0.05, sky: 0.5 },
+  twins: { x: 0.62, s: 0.62, cut: 1, core: 0.3, rate: 0.05, sky: 0.5 },
 };
 const PHONE = {
   hero: { y: 0.42, s: 0.5, field: 0.8, beam: 0.9, rate: 0.5 },
@@ -182,44 +181,33 @@ document.fonts?.ready.then(measure);
 new ResizeObserver(measure).observe(document.querySelector('main'));
 measure();
 
-// ---------- the live figures ----------
-createDispersion(document.querySelector('.disp-sec'));
-
 // ---------- the thesis dial: extra pressure ΔP at the transition ----------
-// The star's mixed phase widens with ΔP; the P–μ sketch and the mass–radius sketch follow.
+// The five values are the curves of thesis Fig. 4.2. The star's mixed phase widens with ΔP.
+const STEPS = [
+  { dp: 0, mmax: 1.76, note: 'A sharp boundary (Maxwell). The curve turns back at 12.5 km and dips: twin stars.' },
+  { dp: 0.08, mmax: 1.77, note: 'A thin mixed phase. The turning point rounds off and the dip nearly goes.' },
+  { dp: 0.13, mmax: 1.78, note: 'A wider mixed phase. No dip, so no twins.' },
+  { dp: 0.17, mmax: 1.80, note: 'A wider mixed phase, and smaller stars at the same mass.' },
+  { dp: 0.21, mmax: 1.82, note: 'The largest extra pressure this equation of state can carry.' },
+];
 const sliders = [document.getElementById('dp'), document.getElementById('dp2')];
 const outs = [document.getElementById('dp-out'), document.getElementById('dp2-out')];
-const lH = document.querySelector('.pmu .l-h'), lQ = document.querySelector('.pmu .l-q'), lM = document.querySelector('.pmu .l-m');
 const dpState = document.querySelector('.dp-state');
-const gTwin = document.querySelector('.mr .g-twin'), gSmooth = document.querySelector('.mr .g-smooth');
+const mrState = document.querySelector('.mr-state');
+const famCurves = [...document.querySelectorAll('.mr-fam .curve')];
 const mixTag = document.querySelector('.tag-mixed');
-// P–μ sketch in plot units: hadronic P = 0.6μ, quark P = 1.4μ − 0.8, crossing at μc = 1 (Pc = 0.6).
-// The mixed phase is the parabola tangent to both lines at μc ∓ d; it passes Pc + 0.2 d at μc.
-const X = (m) => 34 + (m - 0.45) / 1.1 * 276, Y = (p) => 164 - (p - 0.15) / 1.0 * 150;
-const line = (f, m0, m1) => `M${X(m0).toFixed(1)},${Y(f(m0)).toFixed(1)} L${X(m1).toFixed(1)},${Y(f(m1)).toFixed(1)}`;
-const PH = (m) => 0.6 * m, PQ = (m) => 1.4 * m - 0.8;
-function setDP(v) {
-  sliders.forEach((sl) => { sl.value = v; });
-  outs.forEach((o) => { o.textContent = v.toFixed(2); });
-  const dd = Math.max(1.8 * v, 0.0001); // half-width of the mixed phase in μ
-  lH.setAttribute('d', line(PH, 0.5, 1 - dd));
-  lQ.setAttribute('d', line(PQ, 1 + dd, 1.5));
-  let m = '';
-  for (let i = 0; i <= 24; i++) {
-    const x = 1 - dd + (2 * dd) * (i / 24);
-    const y = (0.2 / dd) * (x - 1) ** 2 + (x - 1) + 0.6 + 0.2 * dd;
-    m += (i ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(y).toFixed(1);
-  }
-  lM.setAttribute('d', v > 0 ? m : '');
-  dpState.innerHTML = v === 0
-    ? 'Δ<i>P</i> = 0: Maxwell, a sharp boundary between hadrons and quarks.'
-    : v < 0.035 ? 'Small Δ<i>P</i>: a thin mixed phase.' : 'Large Δ<i>P</i>: a wide mixed phase, a smooth transition.';
-  // twins vanish past a threshold (illustrative position on the dial)
-  const t = Math.min(1, Math.max(0, (v - 0.03) / 0.025));
-  gTwin.style.opacity = String(1 - t * 0.85);
-  gSmooth.style.opacity = String(0.15 + t * 0.85);
-  star?.setInterior(v / 0.08 * 0.26);
-  mixTag.style.visibility = v > 0.004 ? 'visible' : 'hidden';
+function setDP(i) {
+  const s = STEPS[i];
+  sliders.forEach((sl) => { sl.value = i; });
+  outs.forEach((o) => { o.textContent = String(s.dp); });
+  dpState.textContent = s.note;
+  mrState.textContent = `${s.note} Maximum mass ${s.mmax.toFixed(2)} solar masses.`;
+  famCurves.forEach((c, k) => {
+    c.classList.toggle('on', k === i);
+    if (k === i) c.parentNode.appendChild(c);
+  });
+  star?.setInterior((s.dp / 0.21) * 0.3);
+  mixTag.style.visibility = s.dp > 0 ? 'visible' : 'hidden';
 }
 sliders.forEach((sl) => sl.addEventListener('input', () => setDP(Number(sl.value))));
 setDP(0);
@@ -227,7 +215,6 @@ setDP(0);
 // ---------- the signal travels: a dispersed pulse crosses from the star to the antenna ----------
 const tc = document.querySelector('.travel-canvas');
 const tctx = tc.getContext('2d');
-const dmInput = document.getElementById('dm');
 const BANDS = 7;
 let travelOn = false;
 new IntersectionObserver(([e]) => { travelOn = e.isIntersecting; }).observe(tc);
@@ -240,7 +227,7 @@ function travel(now) {
   const W = r.width, H = r.height;
   tctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   tctx.clearRect(0, 0, W, H);
-  const dm = Number(dmInput.value);
+  const dm = 12.4; // PSR J1921+2153
   const T = 3.2; // seconds for the leading edge to cross
   const t = reduced ? 0.75 * T : (now / 1000) % (T + 1.6);
   tctx.font = '500 12px "Instrument Sans", system-ui, sans-serif';
